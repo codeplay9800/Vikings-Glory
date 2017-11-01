@@ -21,11 +21,14 @@ public class ZombieController : MonoBehaviour {
 		agent.SetDestination (player.transform.position);
 	}
 
-	void OnCollisionEnter(Collision other)
+	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Player") {
 			Debug.Log ("collision");
 			animator.SetBool ("attack", true);
+			agent.speed = 0.0f;
+			agent.isStopped=true;
+
 
 			}
 		if (other.gameObject.tag == "axe") {
@@ -34,10 +37,12 @@ public class ZombieController : MonoBehaviour {
 		
 	
 	}
-	void OnCollisionExit(Collision other)
+	void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject.tag == "Player") {
 			animator.SetBool ("attack", false);
+			agent.isStopped=false;
+			agent.speed = 5.0f;
 		}
 
 
